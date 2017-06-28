@@ -35,7 +35,7 @@ class APIWebService: NSObject {
                     print("downloading the images End....")
                     
                     let delegate = UIApplication.shared.delegate as! AppDelegate
-                    delegate.presentTableView()
+                    delegate.navController?.pushViewController(PhotosViewController(), animated: true)
                     
                     
                 }
