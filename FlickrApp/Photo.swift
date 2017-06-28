@@ -9,10 +9,9 @@
 import UIKit
 
 class Photo {
-    private var farmID: Int
-    private var id:String
-    private var serverID, secret:String
-    
+
+    private var farmID:Int
+    private var id, serverID, secret:String
     
     init(dictionary: [String:Any]) {
         self.farmID = dictionary["farm"]! as! Int
@@ -23,8 +22,10 @@ class Photo {
     }
     
     func getURL()->URL {
+        
+        print("getting url for the image")
         var url:URL!
-        if let URLCreated = NSURL(string: NSString(format: "https://farm%d.staticflickr.com/%d/%d_%@.jpg", self.farmID, self.id, self.secret, self.secret) as String) {
+        if let URLCreated = NSURL(string: NSString(format: "https://farm%d.staticflickr.com/%@/%@_%@.jpg", self.farmID, self.serverID, self.id, self.secret) as String) {
             url = URLCreated as URL
         }
         return url

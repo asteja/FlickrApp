@@ -14,24 +14,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var navController:UINavigationController?
     var photosViewController:PhotosViewController?
-    let client = APIWebService()
+    var client:APIWebService?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
+        
+        self.client = APIWebService()
+        self.client?.downloadImages()
+                
+        return true
+        
+    }
+
+}
+
+extension AppDelegate {
+   
+    func presentTableView() {
+        
+        print("presenting table view")
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.navController = UINavigationController()
-      
-        self.client.downloadImages {
-            self.photosViewController = PhotosViewController()
-            self.navController!.pushViewController(self.photosViewController!, animated: true)
-        }
-     
+        self.photosViewController = PhotosViewController()
+        self.navController?.pushViewController(photosViewController!, animated: true)
         self.window?.rootViewController = navController
         self.window?.makeKeyAndVisible()
         
-        return true
     }
-
+    
 }
 
 
