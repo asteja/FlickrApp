@@ -12,23 +12,25 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var navController:UINavigationController?
-    var photosViewController:PhotosViewController?
     var viewController:UIViewController?
     var client:APIWebService?
+    
+    
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+        self.client = APIWebService()
+        self.client?.downloadImages()
+        
+        return true
+    }
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         self.viewController = UIViewController()
         self.viewController?.view.backgroundColor = UIColor.blue
-        
-        self.client = APIWebService()
-        self.client?.downloadImages()
-        
         self.presentTableView()
                 
         return true
-        
     }
 
 }
@@ -39,9 +41,7 @@ extension AppDelegate {
         
         print("presenting table view")
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.navController = UINavigationController()
-        self.navController?.pushViewController(self.viewController!, animated: true)
-        self.window?.rootViewController = navController
+        self.window?.rootViewController = self.viewController
         self.window?.makeKeyAndVisible()
         
     }

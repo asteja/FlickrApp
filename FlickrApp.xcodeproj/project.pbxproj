@@ -13,6 +13,7 @@
 		933CD0B71EFF6749001FED94 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CD0B61EFF6749001FED94 /* PhotosViewController.swift */; };
 		933CD0B91EFF6E62001FED94 /* APIWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933CD0B81EFF6E62001FED94 /* APIWebService.swift */; };
 		9366046B1F0032AC00FB7CA3 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9366046A1F0032AC00FB7CA3 /* Photo.swift */; };
+		93ED2CC71F0366190025A029 /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93ED2CC61F0366190025A029 /* PhotosCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +37,7 @@
 		933CD0B61EFF6749001FED94 /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		933CD0B81EFF6E62001FED94 /* APIWebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIWebService.swift; sourceTree = "<group>"; };
 		9366046A1F0032AC00FB7CA3 /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		93ED2CC61F0366190025A029 /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 				933CD0B61EFF6749001FED94 /* PhotosViewController.swift */,
 				933CD0B81EFF6E62001FED94 /* APIWebService.swift */,
 				9366046A1F0032AC00FB7CA3 /* Photo.swift */,
+				93ED2CC61F0366190025A029 /* PhotosCollectionViewController.swift */,
 			);
 			path = FlickrApp;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 				933CD0B71EFF6749001FED94 /* PhotosViewController.swift in Sources */,
 				933CD0971EFF4530001FED94 /* AppDelegate.swift in Sources */,
 				933CD0B91EFF6E62001FED94 /* APIWebService.swift in Sources */,
+				93ED2CC71F0366190025A029 /* PhotosCollectionViewController.swift in Sources */,
 				9366046B1F0032AC00FB7CA3 /* Photo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

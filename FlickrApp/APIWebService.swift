@@ -8,11 +8,13 @@
 
 import UIKit
 
-let URL = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=b5a0ccbed304ecb5057e8345d3baff55&date=&format=json&nojsoncallback=1&api_sig=efb1014da450419b65a0aff913b564d9"
+let URL = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=daba1eef441785014e3a41e88ff1a62c&format=json&nojsoncallback=1&api_sig=1123f9023ec7cd80ca6f8958ae7f0d79"
 
 class APIWebService: NSObject {
     
     var downloadPhotos = [Photo]()
+    var navController:UINavigationController = UINavigationController()
+
     
     func downloadImages() {
         
@@ -24,19 +26,17 @@ class APIWebService: NSObject {
         
         let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) -> Void in
                 if let data = data, let json = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject] {
-                    
-                    print(json)
-                    
+                                        
                     for case let result in json["photos"]!["photo"] as! [Any] {
-                        print(result)
                         self.downloadPhotos.append(Photo(dictionary: result as! [String: Any]))
                     }
                     
                     print("downloading the images End....")
                     
-                    let delegate = UIApplication.shared.delegate as! AppDelegate
-                    delegate.navController?.pushViewController(PhotosViewController(), animated: true)
-                    
+                    OperationQueue.main.addOperation {
+                         self.presentView()
+                    }
+      
                     
                 }
         }
@@ -59,5 +59,23 @@ class APIWebService: NSObject {
         
     }
 
+    func presentView() {
+        
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+       
+        let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+        layout.itemSize = CGSize(width: 125, height: 125)
+       
+        let photoCollectionView = PhotosCollectionViewController(collectionViewLayout: layout)
+        photoCollectionView.collectionView?.setCollectionViewLayout(layout, animated: true)
+        
+        navController.pushViewController(photoCollectionView, animated: true)
+        navController.navigationBar.topItem?.title = "Photos Collection"
+        
+        delegate.window?.rootViewController = navController
+        
+
+        
+    }
     
 }
