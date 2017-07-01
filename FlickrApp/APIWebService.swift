@@ -8,7 +8,7 @@
 
 import UIKit
 
-let URL = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=daba1eef441785014e3a41e88ff1a62c&format=json&nojsoncallback=1&api_sig=1123f9023ec7cd80ca6f8958ae7f0d79"
+let URL = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=e0ade1a672a6dc317ca9976b0a98614a&format=json&nojsoncallback=1&api_sig=53b51dec1d787e9802ef9c2a1ce98f79"
 
 class APIWebService: NSObject {
     
