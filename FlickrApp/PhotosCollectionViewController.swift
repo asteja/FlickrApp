@@ -16,7 +16,7 @@ class PhotosCollectionViewController: UICollectionViewController {
 
     var client:APIWebService?
     var timer:Timer?
-    var cache:NSCache<AnyObject, AnyObject>?
+    var cache:NSCache<NSURL, UIImage>?
     var downloadedPhotos:[Photo]?
     
     override func viewDidLoad() {
@@ -69,21 +69,26 @@ class PhotosCollectionViewController: UICollectionViewController {
         
         imageView.image =  #imageLiteral(resourceName: "flickr")
         
-        if self.downloadedPhotos != nil && self.cache != nil{
+        if self.cache?.object(forKey: self.downloadedPhotos![indexPath.row].getURL()) != nil {
+            imageView.image = self.cache?.object(forKey: self.downloadedPhotos![indexPath.row].getURL())
+        }else {
+        
+            if self.downloadedPhotos != nil && self.cache != nil{
             
-            DispatchQueue.global(qos: .background).async {
-                self.client!.downloadImage(url: self.downloadedPhotos![indexPath.row].getURL(), completion: { (image) in
+                DispatchQueue.global(qos: .background).async {
+                    self.client!.downloadImage(url: self.downloadedPhotos![indexPath.row].getURL(), completion: { (image) in
                     
-                    self.cache?.setObject(image, forKey: self.client!.downloadPhotos[indexPath.row].getURL() as AnyObject)
+                        self.cache?.setObject(image, forKey: self.client!.downloadPhotos[indexPath.row].getURL())
                     
-                    print("Added to cache", self.cache!)
+                        print("Added to cache", self.cache!)
                     
-                    DispatchQueue.main.async {
-                        imageView.image = image
-                    }
-                })
+                        DispatchQueue.main.async {
+                            imageView.image = image
+                        }
+                    })
+                }
+            
             }
-            
         }
        
         

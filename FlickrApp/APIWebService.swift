@@ -8,7 +8,7 @@
 
 import UIKit
 
-let URL = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=e0ade1a672a6dc317ca9976b0a98614a&format=json&nojsoncallback=1&api_sig=53b51dec1d787e9802ef9c2a1ce98f79"
+let URL = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=777485f683a56258f61a1c5025e77e32&format=json&nojsoncallback=1&api_sig=916261c04dcce0c6d44ba8ad16478b05"
 
 class APIWebService: NSObject {
     
@@ -26,29 +26,32 @@ class APIWebService: NSObject {
         
         let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) -> Void in
                 if let data = data, let json = try? JSONSerialization.jsonObject(with: data, options: []) as! [String: AnyObject] {
-                                        
-                    for case let result in json["photos"]!["photo"] as! [Any] {
-                        self.downloadPhotos.append(Photo(dictionary: result as! [String: Any]))
-                    }
                     
-                    print("downloading the images End....")
+                    if json["code"] != nil {
+                        print("API Error occured")
+                    }else {
+                        for case let result in json["photos"]!["photo"] as! [Any] {
+                            self.downloadPhotos.append(Photo(dictionary: result as! [String: Any]))
+                        }
                     
-                    OperationQueue.main.addOperation {
-                         self.presentView()
+                        print("downloading the images End....")
+                    
+                        OperationQueue.main.addOperation {
+                            self.presentView()
+                        }
                     }
       
-                    
                 }
         }
         task.resume()
 
     }
     
-    func downloadImage(url:URL, completion: @escaping (UIImage)->Void) {
+    func downloadImage(url:NSURL, completion: @escaping (UIImage)->Void) {
         
         print("downloading the image with url")
         
-        let request = URLRequest(url: url)
+        let request = URLRequest(url: url as URL)
         let session = URLSession.shared
         let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) -> Void in
             if let image = UIImage(data: data!) {
@@ -73,8 +76,6 @@ class APIWebService: NSObject {
         navController.navigationBar.topItem?.title = "Photos Collection"
         
         delegate.window?.rootViewController = navController
-        
-
         
     }
     

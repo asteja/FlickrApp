@@ -21,12 +21,12 @@ class Photo {
         
     }
     
-    func getURL()->URL {
+    func getURL()->NSURL {
         
         print("getting url for the image")
-        var url:URL!
+        var url:NSURL!
         if let URLCreated = NSURL(string: NSString(format: "https://farm%d.staticflickr.com/%@/%@_%@.jpg", self.farmID, self.serverID, self.id, self.secret) as String) {
-            url = URLCreated as URL
+            url = URLCreated
         }
         return url
     }
