@@ -22,8 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
-    
-    
+        
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         
         self.viewController = UIViewController()
@@ -39,7 +38,6 @@ extension AppDelegate {
    
     func presentTableView() {
         
-        print("presenting table view")
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = self.viewController
         self.window?.makeKeyAndVisible()

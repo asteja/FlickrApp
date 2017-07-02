@@ -8,7 +8,7 @@
 
 import UIKit
 
-let URL = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=777485f683a56258f61a1c5025e77e32&format=json&nojsoncallback=1&api_sig=916261c04dcce0c6d44ba8ad16478b05"
+let URL = "https://api.flickr.com/services/rest/?method=flickr.interestingness.getList&api_key=31f89d39773fe830deb3f6af7199a266&format=json&nojsoncallback=1&api_sig=e0c089201d2cc1eab616cd683306971a"
 
 class APIWebService: NSObject {
     
@@ -18,7 +18,6 @@ class APIWebService: NSObject {
     
     func downloadImages() {
         
-        print("downloading the images....")
         
         let request = URLRequest(url: NSURL(string: URL)! as URL)
         let session = URLSession.shared
@@ -33,9 +32,7 @@ class APIWebService: NSObject {
                         for case let result in json["photos"]!["photo"] as! [Any] {
                             self.downloadPhotos.append(Photo(dictionary: result as! [String: Any]))
                         }
-                    
-                        print("downloading the images End....")
-                    
+                                        
                         OperationQueue.main.addOperation {
                             self.presentView()
                         }
@@ -48,9 +45,7 @@ class APIWebService: NSObject {
     }
     
     func downloadImage(url:NSURL, completion: @escaping (UIImage)->Void) {
-        
-        print("downloading the image with url")
-        
+                
         let request = URLRequest(url: url as URL)
         let session = URLSession.shared
         let task: URLSessionDataTask = session.dataTask(with: request) { (data, response, error) -> Void in

@@ -32,7 +32,6 @@ class PhotosCollectionViewController: UICollectionViewController {
         self.timer = Timer(timeInterval: 10, target: self, selector: #selector(shufflePhotos), userInfo: nil, repeats: true)
         self.timer?.fire()
 
-        
         // Do any additional setup after loading the view.
     }
     
@@ -49,19 +48,16 @@ class PhotosCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        print("number of Sections")
         return 1
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("number of items in section")
         return 50
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        print("cell for indexpath")
        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "reuseIdentifier", for: indexPath)
         
@@ -80,7 +76,6 @@ class PhotosCollectionViewController: UICollectionViewController {
                     
                         self.cache?.setObject(image, forKey: self.client!.downloadPhotos[indexPath.row].getURL())
                     
-                        print("Added to cache", self.cache!)
                     
                         DispatchQueue.main.async {
                             imageView.image = image
@@ -100,21 +95,39 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize
     {
-        print("sizeforItemAtIndexPath")
         return CGSize(width: 300, height: 300)
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets
     {
-        print("insetForSectionAtIndex")
         return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
     
-    @objc func shufflePhotos() {
+    func shufflePhotos() {
         
-        print("Shufling photos for every 10 seconds")
-        let arr = NSMutableArray(array: self.client!.downloadPhotos)
-        self.downloadedPhotos = arr.shuffled() as? [Photo]
+        var i:Int = 1
+        var elements = [Int]()
+        var shuffledPhotos = [Photo]()
+        
+        while i != self.downloadedPhotos!.count {
+            
+            let num:Int = Int(arc4random_uniform(UInt32(self.downloadedPhotos!.count))) + 1
+            
+            if elements.count <= self.downloadedPhotos!.count && !elements.contains(num) {
+         
+                elements.append(num)
+                shuffledPhotos.append(self.downloadedPhotos![num-1])
+
+            }
+            else {
+                i = i-1
+            }
+            
+            i=i+1
+        }
+        
+        self.downloadedPhotos!.removeAll()
+        self.downloadedPhotos! = shuffledPhotos
         self.collectionView?.reloadData()
         
     }
